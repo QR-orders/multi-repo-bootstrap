@@ -1,2 +1,3 @@
-microsoft/vscode-dev-containers
-microsoft/vscode-remote-try-python
+QR-orders/shared_infrastructure
+QR-orders/qr-ordering-customer
+QR-orders/qr-ordering-admin
