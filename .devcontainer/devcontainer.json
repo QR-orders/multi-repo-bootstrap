@@ -1,6 +1,12 @@
 {
-  "name": "Multi‑Repo Bootstrap",
+  "name": "Multi-Repo Bootstrap",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": "bash clone-repos.sh",
-  "postAttachCommand": "bash .devcontainer/load-workspace.sh"
+  "postCreateCommand": "bash ./clone-repos.sh",
+  "postAttachCommand": "code /workspaces/multi-repo-bootstrap/multi.code-workspace",
+  "customizations": {
+    "vscode": {
+      "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/multi-repo-bootstrap,type=bind",
+      "workspaceFolder": "/workspaces/multi-repo-bootstrap"
+    }
+  }
 }
