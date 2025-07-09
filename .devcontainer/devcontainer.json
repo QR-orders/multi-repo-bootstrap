@@ -1,5 +1,6 @@
 {
   "name": "Multi‑Repo Bootstrap",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": "bash clone-repos.sh"
+  "postCreateCommand": "bash clone-repos.sh",
+  "postAttachCommand": "bash .devcontainer/load-workspace.sh"
 }

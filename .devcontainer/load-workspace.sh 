@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+code --add /workspaces/shared_infrastructure
+code --add /workspaces/qr-ordering-customer
+code --add /workspaces/qr-ordering-admin
