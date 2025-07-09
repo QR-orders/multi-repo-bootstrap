@@ -18,6 +18,6 @@ while read -r repo; do
     echo "🚀 Cloning $repo..."
     git clone "https://github.com/$repo.git"
   fi
-done < "$(dirname "$0")/repos-to-clone.list"
+done < "./repos-to-clone.list"
 
 echo "🎉 [clone-repos.sh] Done!"
