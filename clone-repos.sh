@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
+set -e
 
-# Clear default GitHub credential helper
+echo "🔁 [clone-repos.sh] Starting multi-repo bootstrap..."
+
+# Ensure Git uses token for all clones
 sudo sed -i -E 's/helper =.*//' /etc/gitconfig
 git config --global credential.helper '!f() { echo "username=${GITHUB_USER}"; echo "password=${GH_TOKEN}"; }; f'
 
 mkdir -p /workspaces
 cd /workspaces
 
-while read repo; do
+while read -r repo; do
   name=$(basename "$repo")
-  if [ -d "$name" ]; then
-    echo "⚠️  Repo '$name' already exists. Skipping."
+  if [ -d "$name/.git" ]; then
+    echo "✅ Repo '$name' already exists. Skipping."
   else
-    echo "🔄 Cloning $repo..."
+    echo "🚀 Cloning $repo..."
     git clone "https://github.com/$repo.git"
   fi
 done < "$(dirname "$0")/repos-to-clone.list"
+
+echo "🎉 [clone-repos.sh] Done!"
