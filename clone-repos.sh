@@ -19,6 +19,6 @@ while read -r repo; do
     echo "🚀 Cloning $repo..."
     git clone "https://github.com/$repo.git"
   fi
-done < "$HOME/workspaces/multi-repo-bootstrap/repos-to-clone.list"
+done < "workspaces/multi-repo-bootstrap/repos-to-clone.list"
 
 echo "✅ [clone-repos.sh] Done!"
