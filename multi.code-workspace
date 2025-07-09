@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../qr-ordering-admin"
+		},
+		{
+			"path": "../qr-ordering-customer"
+		}
+	],
+	"settings": {}
+}
