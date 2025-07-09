@@ -1,27 +1,18 @@
 #!/usr/bin/env bash
-script_folder="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
-workspaces_folder="$(cd "${script_folder}/.." && pwd)"
 
-clone-repo()
-{
-    cd "${workspaces_folder}"
-    if [ ! -d "${1#*/}" ]; then
-        git clone "https://github.com/$1"
-    else 
-        echo "Already cloned $1"
-    fi
-}
+# Clear default GitHub credential helper
+sudo sed -i -E 's/helper =.*//' /etc/gitconfig
+git config --global credential.helper '!f() { echo "username=${GITHUB_USER}"; echo "password=${GH_TOKEN}"; }; f'
 
-if [ "${CODESPACES}" = "true" ]; then
-    # Remove the default credential helper
-    sudo sed -i -E 's/helper =.*//' /etc/gitconfig
+mkdir -p /workspaces
+cd /workspaces
 
-    # Add one that just uses secrets available in the Codespace
-    git config --global credential.helper '!f() { sleep 1; echo "username=${GITHUB_USER}"; echo "password=${GH_TOKEN}"; }; f'
-fi
-
-if [ -f "${script_folder}/repos-to-clone.list" ]; then
-    while IFS= read -r repository; do
-        clone-repo "$repository"
-    done < "${script_folder}/repos-to-clone.list"
-fi
+while read repo; do
+  name=$(basename "$repo")
+  if [ -d "$name" ]; then
+    echo "⚠️  Repo '$name' already exists. Skipping."
+  else
+    echo "🔄 Cloning $repo..."
+    git clone "https://github.com/$repo.git"
+  fi
+done < "$(dirname "$0")/repos-to-clone.list"
