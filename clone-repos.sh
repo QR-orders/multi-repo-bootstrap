@@ -33,6 +33,6 @@ while read -r raw_repo || [[ -n "$raw_repo" ]]; do
     echo "🚀 Cloning https://github.com/$repo_name.git into $folder (branch: ${branch_name:-main})..."
     git clone --branch "${branch_name:-main}" "https://github.com/$repo_name.git" "$folder"
   fi
-done < "$HOME/workspaces/multi-repo-bootstrap/repos-to-clone.list"
+done < "/workspaces/multi-repo-bootstrap/repos-to-clone.list"
 
 echo "✅ [clone-repos.sh] Done!"
