@@ -20,12 +20,16 @@ while read -r raw_repo || [[ -n "$raw_repo" ]]; do
   fi
 
   folder=$(basename "$repo")
-  if [ -d "$folder/.git" ]; then
-    echo "✅ Repo '$folder' already exists. Skipping."
-  else
-    echo "🚀 Cloning https://github.com/$repo.git into $folder..."
-    git clone "https://github.com/$repo.git" "$folder"
-  fi
+if [ -d "$folder/.git" ]; then
+  echo "🔄 '$folder' already cloned. Pulling latest..."
+  cd "$folder"
+  git pull --rebase --autostash
+  cd ..
+else
+  echo "🚀 Cloning https://github.com/$repo.git into $folder..."
+  git clone "https://github.com/$repo.git" "$folder"
+fi
+
 done < "/workspaces/multi-repo-bootstrap/repos-to-clone.list"
 
 echo "✅ [clone-repos.sh] Done!"
