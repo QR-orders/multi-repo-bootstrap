@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../qr-ordering-customer"
+		},
+		{
+			"path": "../shared_infrastructure"
 		}
 	],
 	"settings": {}
