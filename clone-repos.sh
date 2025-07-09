@@ -10,6 +10,7 @@ git config --global credential.helper '!f() { echo "username=${GITHUB_USER}"; ec
 mkdir -p /workspaces
 cd /workspaces
 
+# Read repo list from the bootstrap repo root, not /workspaces
 while read -r repo; do
   name=$(basename "$repo")
   if [ -d "$name/.git" ]; then
@@ -18,6 +19,6 @@ while read -r repo; do
     echo "🚀 Cloning $repo..."
     git clone "https://github.com/$repo.git"
   fi
-done < "./repos-to-clone.list"
+done < "$HOME/workspaces/multi-repo-bootstrap/repos-to-clone.list"
 
-echo "🎉 [clone-repos.sh] Done!"
+echo "✅ [clone-repos.sh] Done!"
